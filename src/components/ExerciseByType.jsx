@@ -3,22 +3,165 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FaTrash } from 'react-icons/fa'
 import { FiEdit } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
-import { deleteExercise } from '../features/activities/exerciseSlice'
+import {
+  deleteExercise,
+  createExercise,
+  updateExercise,
+  getExercises,
+} from '../features/activities/exerciseSlice'
 import { toast } from 'react-toastify'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+
+let calledOnce = true
 
 //
 const ExerciseByType = () => {
-  const { exercises, isLoading } = useSelector((state) => state.exercises)
+  const [update, setUpdate] = useState({
+    exerciseName: '',
+    exerciseType: '',
+    duration: '',
+    date: '',
+    details: '',
+    id: '',
+  })
+  const { exercises, isSuccess } = useSelector((state) => state.exercises)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  // flex flex-col md:flex-row flex-wrap justify-evenly
-  // useEffect(() => {
+  useEffect(() => {
+    if (isSuccess || calledOnce) {
+      dispatch(getExercises())
+    }
 
-  // }, [exercises, isLoading])
+    calledOnce = false
+  }, [isSuccess, update.id])
+  // ** handle change for update */
+  const handleChangeUpdate = (e) => {
+    setUpdate((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+  // ** Handle Edit */
+  const handleEdit = (exercise) => {
+    const { exerciseName, exerciseType, duration, date, details, _id } =
+      exercise
+    setUpdate({
+      exerciseName: exerciseName,
+      exerciseType: exerciseType,
+      duration: duration,
+      date: new Date(date).toISOString().slice(0, 10),
+      details: details,
+      id: _id,
+    })
+  }
+
+  // ** Handle Submit */
+
+  //**  Handle Update */
+  const handleUpdate = (e) => {
+    e.preventDefault()
+    dispatch(updateExercise(update))
+    // dispatch(reset())
+    setUpdate({
+      exerciseName: '',
+      exerciseType: '',
+      duration: '',
+      date: '',
+      details: '',
+      id: '',
+    })
+  }
   return (
     <>
       <section className='flex flex-col p-4 mx-auto bg-white relative top-8'>
+        <form
+          action=''
+          method='post'
+          className={` ${
+            update.id ? 'block' : 'hidden'
+          } bg-white rounded-2xl drop-shadow-md px-4 py-8`}
+          onSubmit={update.id && handleUpdate}
+          autoComplete='off'
+        >
+          <div className='grid md:grid-cols-2 grid-cols-1 gap-4'>
+            <label className='block'>
+              <span className='block text-sm font-medium text-slate-700'>
+                Exercise Name
+              </span>
+              <input
+                type='text'
+                name='exerciseName'
+                placeholder='Morning walk for 5 KM'
+                className='mt-1 block w-full mb-4 px-3 py-3 bg-white border border-[#212b36] rounded-md text-sm shadow-sm placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500'
+                value={update.id && update.exerciseName}
+                onChange={update.id && handleChangeUpdate}
+              />
+            </label>
+            <label className='block'>
+              <span className='block text-sm font-medium text-slate-700'>
+                Exercise Type
+              </span>
+              <select
+                name='exerciseType'
+                className='mt-1 block w-full mb-4 px-3 py-3 bg-white border border-[#212b36] rounded-md text-sm shadow-sm placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500'
+                value={update.id && update.exerciseType}
+                onChange={update.id && handleChangeUpdate}
+              >
+                <option value='Swimming'>Swimming</option>
+                <option value='Running'>Running</option>
+                <option value='Bicycling'>Bicycling</option>
+                <option value='Walking'>Walking</option>
+                <option value='Hiking'>Hiking</option>
+              </select>
+            </label>
+          </div>
+          <div className='grid md:grid-cols-2 grid-cols-1 gap-4'>
+            <label className='block'>
+              <span className='block text-sm font-medium text-slate-700'>
+                Date
+              </span>
+              <input
+                type='date'
+                name='date'
+                value={update.id && update.date}
+                onChange={update.id && handleChangeUpdate}
+                className='mt-1 block w-full mb-4 px-3 py-3 bg-white border border-[#212b36] rounded-md text-sm shadow-sm placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500'
+              />
+            </label>
+            <label className='block'>
+              <span className='block text-sm font-medium text-slate-700'>
+                Duration (minutes)
+              </span>
+              <input
+                type='text'
+                name='duration'
+                value={update.id && update.duration}
+                onChange={update.id && handleChangeUpdate}
+                placeholder='30'
+                className='mt-1 block w-full mb-4 p-3 bg-white border border-[#212b36] rounded-md text-sm shadow-sm placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500'
+              />
+            </label>
+          </div>
+          <div className='grid grid-cols-1 gap-4'>
+            <label className='block'>
+              <span className='block text-sm font-medium text-slate-700'>
+                Details
+              </span>
+              <textarea
+                name='details'
+                cols='30'
+                rows='3'
+                className='mt-1 block w-full mb-4 px-3 py-3 bg-white border border-[#212b36] rounded-md text-sm shadow-sm placeholder-gray-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500'
+                value={update.id && update.details}
+                onChange={update.id && handleChangeUpdate}
+              ></textarea>
+            </label>
+          </div>
+          <button
+            type='submit'
+            className='bg-red-500 rounded-lg p-2 text-white w-full md:w-auto font-semibold flex-none capitalize'
+          >
+            {update.id && 'Update exercise'}
+            <i className='fa-solid fa-plus font-semibold text-lg'></i>
+          </button>
+        </form>
         <section className='grid grid-cols-1 place-items-start lg:grid-cols-2  gap-4 py-8'>
           {exercises.length > 0
             ? exercises.map((exercise) => (
@@ -47,6 +190,9 @@ const ExerciseByType = () => {
                                 )
                               ) {
                                 dispatch(deleteExercise(exercise._id))
+                                setUpdate({
+                                  id: null,
+                                })
                               }
                             }}
                           >
@@ -55,7 +201,7 @@ const ExerciseByType = () => {
                           <button
                             type='button'
                             className='mx-1'
-                            onClick={() => navigate('/dashboard/activities')}
+                            onClick={() => handleEdit(exercise)}
                           >
                             <FiEdit />
                           </button>
