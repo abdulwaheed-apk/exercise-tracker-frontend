@@ -202,7 +202,7 @@ const Activities = () => {
           {exercises.length > 0
             ? exercises.map((exercise) => (
                 <div
-                  className='bg-gradient-to-tr from-[#444444] to-[#2a2a2a] rounded-2xl drop-shadow-md text-white max-w-md py-5 px-4'
+                  className='bg-gradient-to-tr from-[#444444] to-[#2a2a2a] rounded-2xl drop-shadow-md text-white min-w-96 max-w-md py-5 px-4'
                   key={exercise._id}
                 >
                   <div className='flex  items-center justify-between max-h-6  '>

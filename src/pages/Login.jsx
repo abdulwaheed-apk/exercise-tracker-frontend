@@ -5,6 +5,9 @@ import { toast } from 'react-toastify'
 import { reset, login } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
 import Header from '../components/Header'
+import { getExercises } from '../features/activities/exerciseSlice'
+
+//
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
@@ -23,6 +26,7 @@ function Login() {
     }
     if (isSuccess || user) {
       navigate('/dashboard')
+      dispatch(getExercises())
     }
     dispatch(reset())
   }, [user, isSuccess, isError, message, dispatch, navigate])

@@ -13,11 +13,9 @@ const ExerciseByType = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   // flex flex-col md:flex-row flex-wrap justify-evenly
-  useEffect(() => {
-    if (isLoading) {
-      toast.loading('Loading Exercises')
-    }
-  }, [exercises, isLoading])
+  // useEffect(() => {
+
+  // }, [exercises, isLoading])
   return (
     <>
       <section className='flex flex-col p-4 mx-auto bg-white relative top-8'>
@@ -31,7 +29,7 @@ const ExerciseByType = () => {
                   ) &&
                   exercise.exerciseType ? (
                     <div
-                      className='bg-gradient-to-tr from-[#444444] to-[#2a2a2a] rounded-2xl drop-shadow-md text-white max-w-md min-w-fit py-5 px-4'
+                      className='bg-gradient-to-tr from-[#444444] to-[#2a2a2a] rounded-2xl drop-shadow-md text-white min-w-96 max-w-md min-w-fit py-5 px-4'
                       key={exercise._id}
                     >
                       <div className='flex  items-center justify-between max-h-6  '>

@@ -37,13 +37,16 @@ const Welcome = () => {
 
     getQuote()
   }, [])
+  const handleActivity = () => {
+    console.log(
+      exercises.filter((item) => item.exerciseType == 'Swimming').length
+    )
+  }
   return (
     <>
       <section className='flex-auto px-4 pt-11 md:pt-8 bg-white'>
         <div className='bg-[#f2f3f5] rounded-2xl h-auto md:h-80 max-w-4xl px-8 py-8 md:py-16'>
-          <p className='font-semibold text-xl md:text-2xl'>
-            Welcome back! {name}
-          </p>
+          <p className='font-semibold text-xl md:text-2xl'>Welcome! {name}</p>
           <div className='font-medium text-sm my-4'>
             <p>{quote.text}</p>
             <p className='mt-2 italic text-xl'>By: {quote.author}</p>
@@ -57,63 +60,44 @@ const Welcome = () => {
           </button>
         </div>
 
-        <section className='grid grid-cols-1 lg:grid-cols-2 gap-8 py-8 px-4'>
-          <div className='bg-white rounded-2xl drop-shadow-md max-w-md py-5 px-4'>
-            <p className='font-semibold text-xl'>Exercise Activity Types</p>
-            <div className='border-t-2 my-2 pt-5 border-[#E8EAED]'>
-              <div className='grid grid-cols-2 md:grid-cols-5 -mt-4 mb-2 gap-2 place-items-center '>
-                <h6 className='font-medium text-xs'>Run</h6>
-                <h6 className='font-medium text-xs'>Swim</h6>
-                <h6 className='font-medium text-xs'>Hike</h6>
-                <h6 className='font-medium text-xs'>Bicycling</h6>
-                <h6 className='font-medium text-xs'>Walk</h6>
-              </div>
-              {/* <!-- Circle --> */}
-              <button
-                type='button'
-                className='bg-red-500 rounded h-2 w-8'
-              ></button>
+        <section className='grid grid-cols-1 lg:grid-cols-3 gap-8 py-8 px-4'>
+          {/* <!-- Time card --> */}
+          <div className='bg-white rounded-2xl drop-shadow-md max-w-xs max-h-36 my-1 px-4 py-4  '>
+            <h4 className='font-semibold text-sm my-2 text-center'>
+              Total Hours Of Exercise Activities
+            </h4>
+            <div className='flex justify-around items-center my-1'>
+              <p className='font-semibold text-3xl '>{timeInHours}</p>
+              <p className='font-bold text-3xl'></p>
+              <p>
+                <FaClock className='text-4xl text-cyan-900 transition-all duration-200 ease-linear hover:font-medium hover:animate-pulse hover:scale-105' />
+              </p>
             </div>
           </div>
-          <div className='grid grid-rows-3 grid-flow-col gap-4'>
-            {/* <!-- Time card --> */}
-            <div className='bg-white rounded-2xl drop-shadow-md max-w-xs max-h-36 my-1 px-4 py-4  '>
-              <h4 className='font-semibold text-sm my-2 text-center'>
-                Total Hours Of Exercise Activities
-              </h4>
-              <div className='flex justify-around items-center my-1'>
-                <p className='font-semibold text-3xl '>{timeInHours}</p>
-                <p className='font-bold text-3xl'></p>
-                <p>
-                  <FaClock className='text-4xl text-cyan-900 transition-all duration-200 ease-linear hover:font-medium hover:animate-pulse hover:scale-105' />
-                </p>
-              </div>
+          {/* <!-- Distance Card --> */}
+          <div className='bg-white rounded-2xl drop-shadow-md max-w-xs max-h-36 my-1 px-4 py-4'>
+            <h4 className='font-semibold text-sm my-2 text-center'>
+              Total Distance Covered
+            </h4>
+            <div className='flex justify-around items-center my-1'>
+              <p className='font-semibold text-3xl'>900 KM</p>
+              <p className='font-bold text-3xl'></p>
+              <p>
+                <FaRoad className='text-amber-900 text-4xl transition-all duration-200 ease-linear  hover:animate-pulse hover:scale-105 hover:font-medium' />
+              </p>
             </div>
-            {/* <!-- Distance Card --> */}
-            <div className='bg-white rounded-2xl drop-shadow-md max-w-xs max-h-36 my-1 px-4 py-4'>
-              <h4 className='font-semibold text-sm my-2 text-center'>
-                Total Distance Covered
-              </h4>
-              <div className='flex justify-around items-center my-1'>
-                <p className='font-semibold text-3xl'>900 KM</p>
-                <p className='font-bold text-3xl'></p>
-                <p>
-                  <FaRoad className='text-amber-900 text-4xl transition-all duration-200 ease-linear  hover:animate-pulse hover:scale-105 hover:font-medium' />
-                </p>
-              </div>
-            </div>
-            {/* <!-- Calories Card --> */}
-            <div className='bg-white rounded-2xl drop-shadow-md max-w-xs max-h-36 my-1 px-4 py-4'>
-              <h4 className='font-semibold text-sm my-2 text-center'>
-                Today's Calories Burned
-              </h4>
-              <div className='flex justify-around items-center my-1'>
-                <p className='font-semibold text-3xl '>300 Calories</p>
-                <p className='font-bold text-3xl'></p>
-                <p>
-                  <FaFire className='text-4xl text-red-500 transition-all duration-200 ease-linear  hover:animate-pulse hover:scale-105 hover:font-medium' />
-                </p>
-              </div>
+          </div>
+          {/* <!-- Calories Card --> */}
+          <div className='bg-white rounded-2xl drop-shadow-md max-w-xs max-h-36 my-1 px-4 py-4'>
+            <h4 className='font-semibold text-sm my-2 text-center'>
+              Today's Calories Burned
+            </h4>
+            <div className='flex justify-around items-center my-1'>
+              <p className='font-semibold text-3xl '>300 Calories</p>
+              <p className='font-bold text-3xl'></p>
+              <p>
+                <FaFire className='text-4xl text-red-500 transition-all duration-200 ease-linear  hover:animate-pulse hover:scale-105 hover:font-medium' />
+              </p>
             </div>
           </div>
         </section>
