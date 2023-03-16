@@ -51,6 +51,26 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
     return thunkAPI.rejectWithValue(message)
   }
 })
+// Update User
+// todo make builder cases
+export const updateUser = createAsyncThunk(
+  'auth/profileUpdate',
+  async (userData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token
+      return await authService.updateUser(userData, token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,

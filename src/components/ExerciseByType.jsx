@@ -159,7 +159,6 @@ const ExerciseByType = () => {
             className='bg-red-500 rounded-lg p-2 text-white w-full md:w-auto font-semibold flex-none capitalize'
           >
             {update.id && 'Update exercise'}
-            <i className='fa-solid fa-plus font-semibold text-lg'></i>
           </button>
         </form>
         <section className='grid grid-cols-1 place-items-start lg:grid-cols-2  gap-4 py-8'>

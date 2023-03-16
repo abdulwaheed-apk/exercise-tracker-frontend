@@ -21,6 +21,21 @@ const login = async (userData) => {
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data))
   }
+  // console.log('response from server debug -->', response)
+  return response.data
+}
+const updateUser = async (userData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+  const response = await axios.put(
+    userEndpoint + '/profileUpdate',
+    userData,
+    config
+  )
+  console.log('response  for updateUser', response)
   return response.data
 }
 
@@ -28,5 +43,6 @@ const authService = {
   register,
   logout,
   login,
+  updateUser,
 }
 export default authService
