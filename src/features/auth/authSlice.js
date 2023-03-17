@@ -17,14 +17,14 @@ export const register = createAsyncThunk(
     try {
       return await authService.register(user)
     } catch (error) {
-      // console.log('error -- ', error.response.data.errors)
-      // console.log('error -- for Message', error.response.data.errors[0].msg)
+      // console.log('error -- ', error)
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.response.data.errors
-      error.message || error.toString
+        error.response.data.message ||
+        error.response.data.errors.map((item) => item.msg).toString() ||
+        error.response ||
+        error.response.data ||
+        error.message ||
+        error.toString()
       return thunkAPI.rejectWithValue(message)
     }
   }

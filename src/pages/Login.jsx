@@ -25,6 +25,7 @@ function Login() {
       toast.error(message)
     }
     if (isSuccess || user) {
+      toast.success('Successfully Logged In')
       navigate('/dashboard')
       dispatch(getExercises())
     }
@@ -34,7 +35,7 @@ function Login() {
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
-  // Handle Change
+  // Handle Submit
   const handleSubmit = (e) => {
     e.preventDefault()
     // console.log('formData', formData)

@@ -25,6 +25,7 @@ function Register() {
       toast.error(message)
     }
     if (isSuccess || user) {
+      toast.success('Registration Successful, Welcome to the Dashboard')
       navigate('/dashboard')
     }
     dispatch(reset())
