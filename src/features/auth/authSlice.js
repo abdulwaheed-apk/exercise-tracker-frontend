@@ -17,12 +17,14 @@ export const register = createAsyncThunk(
     try {
       return await authService.register(user)
     } catch (error) {
+      // console.log('error -- ', error.response.data.errors)
+      // console.log('error -- for Message', error.response.data.errors[0].msg)
       const message =
         (error.response &&
           error.response.data &&
           error.response.data.message) ||
-        error.message ||
-        error.toString
+        error.response.data.errors
+      error.message || error.toString
       return thunkAPI.rejectWithValue(message)
     }
   }
@@ -32,6 +34,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
   try {
     await authService.logout()
   } catch (error) {
+    console.log('error login', error.response)
     const message =
       (error.response && error.response.data && error.response.data.message) ||
       error.message ||
@@ -45,8 +48,8 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
     return await authService.login(user)
   } catch (error) {
     const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
+      error.response.data.message ||
+      error.response.data.errors.map((item) => item.msg).toString() ||
       error.toString()
     return thunkAPI.rejectWithValue(message)
   }

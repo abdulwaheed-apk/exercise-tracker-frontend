@@ -16,7 +16,7 @@ let calledOnce = true
 const Activities = () => {
   const [formData, setFormData] = useState({
     exerciseName: '',
-    exerciseType: '',
+    exerciseType: 'Running',
     duration: '',
     date: '',
     details: '',
