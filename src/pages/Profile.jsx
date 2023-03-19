@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateUser } from '../features/auth/authSlice'
-
+import { updateUser } from '.././features/auth/authSlice'
+import { toast } from 'react-toastify'
 //
 const Profile = () => {
   const [formData, setUserData] = useState({
@@ -12,31 +12,55 @@ const Profile = () => {
     newPassword: '',
   })
   const { name, username, email, password, newPassword } = formData
-  const { user } = useSelector((state) => state.auth)
-  // console.log('user', user)
+  const dispatch = useDispatch()
+  const { user, isSuccess, isLoading, isError, message } = useSelector(
+    (state) => state.auth
+  )
+  // Handle Side Effects
+  useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
+    if (isSuccess) {
+      toast.success('Profile Updated Successfully')
+    }
+  }, [isSuccess, isError, message, user])
+  // Handle Change for Update
   const handleChangeUpdate = (e) => {
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
+  // Handle Submit
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('got formData => ?  ', formData)
-    setUserData({
-      name: '',
-      username: '',
-      email: '',
-      password: '',
-      newPassword: '',
-    })
+    const userData = {
+      name,
+      username,
+      email,
+      password,
+      newPassword,
+    }
+    console.log(userData)
+    dispatch(updateUser(userData))
+    // setUserData({
+    //   name: '',
+    //   username: '',
+    //   email: '',
+    //   password: '',
+    //   newPassword: '',
+    // })
   }
   return (
     <>
-      <div className='flex flex-col md:flex-row p-4 relative top-10 md:top-8'>
+      <div className='flex flex-col lg:flex-row md:justify-between gap-8 p-4 relative top-10 md:top-8'>
         <form
           action=''
           method='post'
           autoComplete='off'
           onSubmit={handleSubmit}
         >
+          <h1 className='text-2xl font-semibold text-gray-500 py-2'>
+            Update Profile
+          </h1>
           <div className='grid grid-cols-1 w-full gap-4'>
             <label className='grid grid-cols-1 '>
               <span className='block text-sm font-medium text-slate-700'>
@@ -107,12 +131,28 @@ const Profile = () => {
             </label>
             <button
               type='submit'
-              className='bg-red-500 rounded-lg text-xs font-semibold text-white px-4 py-3 transition-all duration-200 ease-linear  hover:animate-pulse hover:scale-105'
+              className='bg-red-500 rounded-lg text-xs font-semibold text-white px-4 py-3 transition-all duration-200 ease-linear hover:scale-105'
             >
               Update Profile
             </button>
           </div>
         </form>
+        <div>
+          <h1 className='text-2xl font-semibold text-gray-500 py-2'>
+            Danger Zone
+          </h1>
+          <button
+            type='button'
+            onClick={() =>
+              window.confirm('Are you sure?')
+                ? console.log('delete')
+                : console.log('cancel')
+            }
+            className='bg-red-500 rounded-lg text-xs font-semibold text-white px-4 py-3 transition-all duration-200 ease-linear hover:scale-105'
+          >
+            Delete My Account
+          </button>
+        </div>
       </div>
     </>
   )

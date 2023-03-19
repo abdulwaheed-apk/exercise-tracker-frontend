@@ -9,7 +9,7 @@ const register = async (userData) => {
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data))
   }
-  console.log('Register res ', response.data.errors)
+  // console.log('Register res ', response.data.errors)
   return response.data
 }
 // Logout Call
@@ -26,6 +26,7 @@ const login = async (userData) => {
   // console.log('response from server debug -->', response)
   return response.data
 }
+// Update User Call
 const updateUser = async (userData, token) => {
   const config = {
     headers: {

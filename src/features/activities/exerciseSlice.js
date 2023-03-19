@@ -16,10 +16,15 @@ export const createExercise = createAsyncThunk(
       // console.log(token)
       return await exerciseService.createExercise(exerciseData, token)
     } catch (error) {
+      // console.log(
+      //   'error on add exercise ->',
+      //   error.response.data.errors.map((item) => item.msg).toString()
+      // )
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
+        error.response.data.message ||
+        error.response.data.errors.map((item) => item.msg).toString() ||
+        error.response ||
+        error.response.data ||
         error.message ||
         error.toString()
       return thunkAPI.rejectWithValue(message)

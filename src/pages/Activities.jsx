@@ -9,7 +9,7 @@ import {
   updateExercise,
   deleteExercise,
 } from '../features/activities/exerciseSlice'
-
+import { toast } from 'react-toastify'
 let calledOnce = true
 
 //
@@ -31,17 +31,22 @@ const Activities = () => {
   })
   const { exerciseName, exerciseType, duration, date, details } = formData
 
-  const { exercises, isSuccess } = useSelector((state) => state.exercises)
+  const { exercises, isSuccess, isError, message } = useSelector(
+    (state) => state.exercises
+  )
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.auth)
   // ** Create exercise Side Effects */
   useEffect(() => {
+    if (isError) {
+      toast.error(message)
+    }
     if (isSuccess || calledOnce) {
       dispatch(getExercises())
     }
 
     calledOnce = false
-  }, [isSuccess, update.id])
+  }, [isSuccess, update.id, message, isError, dispatch])
 
   // console.log('To Update', updateExercise)
   // ** Handle Change */
