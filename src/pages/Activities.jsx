@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FiEdit } from 'react-icons/fi'
 import { FaTrash } from 'react-icons/fa'
 import {
-  reset,
+  resetExercises,
   createExercise,
   getExercises,
   updateExercise,
@@ -96,7 +96,7 @@ const Activities = () => {
   const handleUpdate = (e) => {
     e.preventDefault()
     dispatch(updateExercise(update))
-    // dispatch(reset())
+    // dispatch(resetExercises())
     setUpdate({
       exerciseName: '',
       exerciseType: '',

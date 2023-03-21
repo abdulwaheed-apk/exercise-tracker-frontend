@@ -30,9 +30,9 @@ export const register = createAsyncThunk(
   }
 )
 // Logout User
-export const logout = createAsyncThunk('auth/logout', async () => {
+export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    await authService.logout()
+    return await authService.logout()
   } catch (error) {
     console.log('error login', error.response)
     const message =

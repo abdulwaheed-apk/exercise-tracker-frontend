@@ -44,11 +44,7 @@ const Sidebar = () => {
             </button>{' '} */}
           </div>
           <div className='bg-[#F2F3F5] w-56 mx-auto h-20 rounded-xl flex justify-around items-center px-4 my-5'>
-            <img
-              src='/avatar-1.jpg'
-              alt='avatar'
-              className='w-14 rounded-full'
-            />
+            <img src='/vite.svg' alt='avatar' className='w-14 rounded-full' />
             <div>
               <h4 className='font-medium text-base'>{name}</h4>
               <h6 className='font-normal text-xs'>{username}</h6>

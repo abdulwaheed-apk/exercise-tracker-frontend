@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
+import { resetExercises } from '../features/activities/exerciseSlice'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { useState } from 'react'
 const Header = () => {
@@ -8,11 +9,13 @@ const Header = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user } = useSelector((state) => state.auth)
+  const { exercises } = useSelector((state) => state.exercises)
 
   // Handle Click
   const handleClick = () => {
     dispatch(logout())
-    dispatch(reset)
+    dispatch(reset())
+    dispatch(resetExercises())
     navigate('/')
   }
   return (
