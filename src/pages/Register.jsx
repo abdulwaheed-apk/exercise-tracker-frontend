@@ -6,7 +6,11 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
 import Header from '../components/Header'
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+
+//
 function Register() {
+  const [show, setShow] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -79,7 +83,7 @@ function Register() {
                   name='name'
                   value={name}
                   onChange={handleChange}
-                  placeholder='Muhammad Ali'
+                  placeholder='Johan Doe'
                   className='bg-white autofill:bg-white focus:outline-offset-1 rounded-lg block w-full text-gray-500 font-normal px-3 py-3 my-0'
                 />
               </fieldset>
@@ -90,7 +94,7 @@ function Register() {
                   name='email'
                   value={email}
                   onChange={handleChange}
-                  placeholder='ali@gmail.io'
+                  placeholder='johan@email.com'
                   className='bg-white autofill:bg-white focus:outline-offset-1 rounded-lg block w-full text-gray-500 font-normal px-3 py-3 my-0'
                 />
               </fieldset>
@@ -101,21 +105,32 @@ function Register() {
                   name='username'
                   value={username}
                   onChange={handleChange}
-                  placeholder='muhammad.ali17'
+                  placeholder='johan'
                   className='bg-white autofill:bg-white focus:outline-offset-1 rounded-lg block w-full text-gray-500 font-normal px-3 py-3 my-0'
                   autofill='false'
                 />
               </fieldset>
-              <fieldset className='border border-black border-opacity-50 focus-within:border-0 text-black text-base py-0 px-2 my-2 rounded-lg'>
+              <fieldset className='relative border border-black border-opacity-50 focus-within:border-0 text-black text-base py-0 px-2 my-2 rounded-lg'>
                 <legend className='px-2 font-normal'>Create Password</legend>
                 <input
-                  type='password'
+                  type={show ? 'text' : 'password'}
                   name='password'
                   value={password}
                   onChange={handleChange}
                   placeholder='********'
                   className='bg-white autofill:bg-white focus:outline-offset-1 rounded-lg block w-full text-gray-500 font-normal px-3 py-3 my-0'
                 />
+                <span className='absolute right-4 top-1/4 text-gray-900 text-xl'>
+                  <button
+                    type='button'
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setShow(!show)
+                    }}
+                  >
+                    {show ? <AiFillEyeInvisible /> : <AiFillEye />}
+                  </button>
+                </span>
               </fieldset>
 
               <button
