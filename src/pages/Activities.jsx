@@ -40,6 +40,7 @@ const Activities = () => {
   useEffect(() => {
     if (isError) {
       toast.error(message)
+      dispatch(resetExercises())
     }
     if (isSuccess || calledOnce) {
       dispatch(getExercises())
