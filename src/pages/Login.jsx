@@ -6,9 +6,10 @@ import { reset, login } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
 import Header from '../components/Header'
 import { getExercises } from '../features/activities/exerciseSlice'
-
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 //
 function Login() {
+  const [show, setShow] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -77,22 +78,33 @@ function Login() {
                 <input
                   type='email'
                   name='email'
-                  placeholder='ali@gmail.io'
+                  placeholder='johan@email.com'
                   className='bg-white autofill:bg-white focus:outline-offset-1 rounded-lg block w-full text-gray-500 font-normal px-3 py-3 my-0 '
                   value={email}
                   onChange={handleChange}
                 />
               </fieldset>
-              <fieldset className='border border-black border-opacity-50 focus-within:border-0 text-black text-base py-0 px-2 my-2 rounded-lg'>
+              <fieldset className='relative border border-black border-opacity-50 focus-within:border-0 text-black text-base py-0 px-2 my-2 rounded-lg'>
                 <legend className='px-2 font-normal'>Password</legend>
                 <input
-                  type='password'
+                  type={show ? 'text' : 'password'}
                   name='password'
                   placeholder='********'
                   className='bg-white autofill:bg-white focus:outline-offset-1 rounded-lg block w-full text-gray-500 font-normal px-3 py-3 my-0'
                   value={password}
                   onChange={handleChange}
                 />
+                <span className='absolute right-4 top-1/4 text-gray-900 text-xl'>
+                  <button
+                    type='button'
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setShow(!show)
+                    }}
+                  >
+                    {show ? <AiFillEyeInvisible /> : <AiFillEye />}
+                  </button>
+                </span>
               </fieldset>
               <button
                 type='submit'
