@@ -139,6 +139,11 @@ function Register() {
               >
                 Sign Up
               </button>
+              <p className='text-center md:text-left py-2'>
+                Create New Account or login with dummy account <br /> Email:{' '}
+                <strong>dummy@gmail.com</strong> Password:{' '}
+                <strong>dummy</strong>
+              </p>
             </div>
           </form>
         </div>
