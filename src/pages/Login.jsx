@@ -50,6 +50,7 @@ function Login() {
   if (isLoading) {
     return <Spinner />
   }
+  console.log('process.meta.env.BASE_URL', import.meta.env.BASE_URL)
   return (
     <>
       <Header />

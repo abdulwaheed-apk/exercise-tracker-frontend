@@ -1,51 +1,56 @@
 import axios from 'axios'
-import { userEndpoint } from '../../core/endpoints'
 
 // console.log(userEndpoint)
 
 // Register Call
 const register = async (userData) => {
-  const response = await axios.post(userEndpoint + '/register', userData)
-  if (response.data) {
-    localStorage.setItem('user', JSON.stringify(response.data))
-  }
-  // console.log('Register res ', response.data.errors)
-  return response.data
+    const response = await axios.post(
+        `${import.meta.env.VITE_SOME_KEY}/users/register`,
+        userData
+    )
+    if (response.data) {
+        localStorage.setItem('user', JSON.stringify(response.data))
+    }
+    // console.log('Register res ', response.data.errors)
+    return response.data
 }
 // Logout Call
 const logout = () => {
-  localStorage.removeItem('user')
+    localStorage.removeItem('user')
 }
 // Login Call
 const login = async (userData) => {
-  const response = await axios.post(userEndpoint + '/login', userData)
-  if (response.status === 400) {
+    const response = await axios.post(
+        `${import.meta.env.VITE_SOME_KEY}/users/login`,
+        userData
+    )
+    if (response.status === 400) {
+        return response.data
+    }
+    localStorage.setItem('user', JSON.stringify(response.data))
+    // console.log('response from server debug -->', response)
     return response.data
-  }
-  localStorage.setItem('user', JSON.stringify(response.data))
-  // console.log('response from server debug -->', response)
-  return response.data
 }
 // Update User Call
 const updateUser = async (userData, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }
-  const response = await axios.put(
-    userEndpoint + '/profileUpdate',
-    userData,
-    config
-  )
-  console.log('response  for updateUser', response)
-  return response.data
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }
+    const response = await axios.put(
+        `${import.meta.env.VITE_SOME_KEY}/users/profileUpdate`,
+        userData,
+        config
+    )
+    console.log('response  for updateUser', response)
+    return response.data
 }
 
 const authService = {
-  register,
-  logout,
-  login,
-  updateUser,
+    register,
+    logout,
+    login,
+    updateUser,
 }
 export default authService
