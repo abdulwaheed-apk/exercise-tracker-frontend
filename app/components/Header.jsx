@@ -9,8 +9,9 @@ import { useRouter } from 'next/navigation'
 const Header = () => {
     const [toggle, setToggle] = useState(false)
     const [isTransparent, setIsTransparent] = useState(true)
+    const [isUser, setIsUser] = useState(null)
     const dispatch = useDispatch()
-    const { user } = useSelector((state) => state.auth)
+    // const { user } = useSelector((state) => state.auth)
     const { exercises } = useSelector((state) => state.exercises)
 
     const router = useRouter()
@@ -27,6 +28,14 @@ const Header = () => {
         return () => {
             window.removeEventListener('scroll', handleScroll)
         }
+    }, [])
+    useEffect(() => {
+        // Lazy load the authSlice on the client-side
+        import('../features/auth/authSlice').then((authSlice) => {
+            const user = authSlice.getUserFromLocalStorage()
+            // Your code using 'user' variable here
+            setIsUser(user)
+        })
     }, [])
     const handleClick = () => {
         dispatch(logout())
@@ -56,7 +65,7 @@ const Header = () => {
                             toggle ? 'flex' : 'hidden md:flex'
                         } my-auto ml-auto`}
                     >
-                        {user ? (
+                        {isUser ? (
                             <>
                                 <li className='rounded max-w-max py-1 px-1 md:px-4 text-black'>
                                     <Link
