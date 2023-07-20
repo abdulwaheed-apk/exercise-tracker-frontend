@@ -33,24 +33,30 @@ export default function Register() {
         dispatch(registerReducer(data))
     }
     return (
-        <main>
-            <div className='pt-1 pb-0 px-6'>
-                <div className='pt-8 pb-0 px-6'>
-                    <h4 className='font-semibold text-[#212b36]'>Sign up</h4>
-                    <div className='flex '>
-                        <p className='text-gray-500 font-normal mr-3'>
+        <main className='flex justify-center items-center m-auto py-8'>
+            <div className='pt-1 pb-0 '>
+                <div className='py-4 mt-8 left-0'>
+                    <h4 className='font-semibold text-[#212b36]'>Sign In</h4>
+                    <div className='flex flex-col md:flex-row justify-start items-start'>
+                        <p className='text-gray-500 font-normal'>
                             Already have an account?
                         </p>
                         <Link
                             href='/login'
-                            className='text-red-500 font-medium'
+                            className='text-red-500 font-medium md:ml-1'
                         >
                             Log in
                         </Link>
                     </div>
                 </div>
-                <Box component='form' onSubmit={handleSubmit(handleRegister)}>
-                    <Stack width={'450px'} spacing={2}>
+                <form
+                    onSubmit={handleSubmit(handleRegister)}
+                    autoComplete='off'
+                >
+                    <Stack
+                        className='mx-auto md:mx-0 w-10/12 min-w-fit sm:w-[450px]'
+                        spacing={1.5}
+                    >
                         <TextField
                             variant='outlined'
                             label='Name'
@@ -110,7 +116,7 @@ export default function Register() {
                             Sign up{' '}
                         </Button>
                     </Stack>
-                </Box>
+                </form>
             </div>
         </main>
     )

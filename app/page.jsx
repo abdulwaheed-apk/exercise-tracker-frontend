@@ -19,7 +19,7 @@ export default function Home() {
         quoteMachine()
     }, [])
     return (
-        <main className='container max-w-7xl xl:pt-40 py-16 px-4 mx-auto flex flex-col-reverse md:flex-row justify-between items-center'>
+        <main className='container max-w-7xl xl:pt-40 pt-4 pb-8 px-4 mx-auto flex flex-col-reverse md:flex-row justify-between items-center'>
             <div>
                 <h1 className='font-bold normal-case text-4xl md:text-6xl max-w-xl leading-tight tracking-tight mb-2'>
                     Let us manage and track your activities, you
@@ -31,7 +31,7 @@ export default function Home() {
                 <div className='my-4 py-6'>
                     <Link
                         href='/login'
-                        className='rounded-md text-[#212b36] font-semibold bg-transparent border  border-[#919eab52] hover:border-red-500 hover:bg-red-500 hover:text-white hover:scale-110 px-10 py-3 transition-all duration-200 ease-linear  hover:animate-pulse  hover:font-medium'
+                        className='rounded-md text-[#212b36] font-semibold bg-transparent border  border-[#919eab52] hover:border-red-500 hover:bg-red-500 hover:text-white hover:scale-110 px-10 py-3 transition-all duration-200 ease-linear  hover:font-medium'
                     >
                         Get Started
                     </Link>

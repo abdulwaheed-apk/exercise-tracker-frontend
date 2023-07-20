@@ -2,17 +2,32 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
 import { resetExercises } from '../features/activities/exerciseSlice'
-// import { BsThreeDotsVertical } from 'react-icons/bs'
-import { useState } from 'react'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 const Header = () => {
     const [toggle, setToggle] = useState(false)
+    const [isTransparent, setIsTransparent] = useState(true)
     const dispatch = useDispatch()
     const { user } = useSelector((state) => state.auth)
     const { exercises } = useSelector((state) => state.exercises)
+
     const router = useRouter()
-    // Handle Click
+    const handleScroll = () => {
+        if (window.scrollY > 0) {
+            setIsTransparent(false)
+        } else {
+            setIsTransparent(true)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
     const handleClick = () => {
         dispatch(logout())
         dispatch(reset())
@@ -21,8 +36,12 @@ const Header = () => {
     }
     return (
         <>
-            <header className='sticky z-40 top-0 right-0 left-0 py-4 px-4 border-b border-[#E8EAED] max-h-20 bg-white shadow-sm rounded-b max-w-7xl mx-auto'>
-                <nav className='max-w-7xl mx-auto flex justify-between items-center overflow-hidden'>
+            <header
+                className={`fixed top-0 left-0 w-full z-50 transition ease-in-out duration-300 py-4 px-4 md:px-24 border-b border-[#E8EAED] max-h-20 ${
+                    isTransparent ? ' bg-white' : 'bg-opacity-95 bg-white'
+                }`}
+            >
+                <nav className='w-full mx-auto flex justify-between items-center overflow-hidden'>
                     <h2 className='flex-none sm:flex-auto'>
                         <Link
                             href='/'
@@ -79,10 +98,10 @@ const Header = () => {
                     </ul>
                     <button type='button' className='inline-block md:hidden'>
                         {' '}
-                        {/* <BsThreeDotsVertical
-              onClick={() => setToggle(!toggle)}
-              className='text-red-500 text-xl'
-            /> */}
+                        <MoreVertIcon
+                            onClick={() => setToggle(!toggle)}
+                            className='text-red-500 text-xl'
+                        />
                     </button>
                 </nav>
             </header>
