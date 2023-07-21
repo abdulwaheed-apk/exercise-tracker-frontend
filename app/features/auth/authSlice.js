@@ -7,9 +7,9 @@ const getUserFromLocalStorage = () => {
     }
     return null
 }
-// const user = getUserFromLocalStorage()
+const user = getUserFromLocalStorage()
 const initialState = {
-    user: null,
+    user: user ? user : null,
     isError: false,
     isSuccess: false,
     isLoading: false,

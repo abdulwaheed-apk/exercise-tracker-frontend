@@ -2,12 +2,16 @@
 import { Provider } from 'react-redux'
 import Header from './components/Header'
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import store from './redux/store'
 import Footer from './components/Footer'
 import { Toaster } from 'react-hot-toast'
 
-const inter = Inter({ subsets: ['latin'] })
+const montserrat = Montserrat({
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-montserrat',
+})
 
 const metadata = {
     title: 'Create Next App',
@@ -18,7 +22,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang='en'>
             <body
-                className={`${inter.className} min-h-screen flex flex-col justify-between`}
+                className={`${montserrat.variable} font-montserrat min-h-screen flex flex-col justify-between`}
             >
                 <Provider store={store}>
                     <Header />

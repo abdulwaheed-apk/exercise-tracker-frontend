@@ -18,6 +18,7 @@ export default function Home() {
         }
         quoteMachine()
     }, [])
+
     return (
         <main className='container max-w-7xl xl:pt-40 pt-4 pb-8 px-4 mx-auto flex flex-col-reverse md:flex-row justify-between items-center'>
             <div>

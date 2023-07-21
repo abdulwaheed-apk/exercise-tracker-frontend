@@ -1,13 +1,10 @@
 import axios from 'axios'
 
-// console.log(userEndpoint)
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 // Register Call
 const register = async (userData) => {
-    const response = await axios.post(
-        `http://localhost:5000/api/users/register`,
-        userData
-    )
+    const response = await axios.post(`${API_URL}/users/register`, userData)
     if (response.data) {
         localStorage.setItem('user', JSON.stringify(response.data))
     }
@@ -20,10 +17,7 @@ const logout = () => {
 }
 // Login Call
 const login = async (userData) => {
-    const response = await axios.post(
-        `http://localhost:5000/api/users/login`,
-        userData
-    )
+    const response = await axios.post(`${env.API_URL}/users/login`, userData)
     if (response.status === 400) {
         return response.data
     }
@@ -39,7 +33,7 @@ const updateUser = async (userData, token) => {
         },
     }
     const response = await axios.put(
-        `http://localhost:5000/api/users/profileUpdate`,
+        `${API_URL}/users/profileUpdate`,
         userData,
         config
     )

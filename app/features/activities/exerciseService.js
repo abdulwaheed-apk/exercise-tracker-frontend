@@ -1,4 +1,5 @@
 import axios from 'axios'
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 // Create Exercise
 const createExercise = async (exerciseData, token) => {
@@ -8,7 +9,7 @@ const createExercise = async (exerciseData, token) => {
         },
     }
     const response = await axios.post(
-        `http://localhost:5000/api/exercises`,
+        `${API_URL}/exercises`,
         exerciseData,
         config
     )
@@ -21,10 +22,7 @@ const getExercises = async (token) => {
             Authorization: `Bearer ${token}`,
         },
     }
-    const response = await axios.get(
-        `http://localhost:5000/api/exercises`,
-        config
-    )
+    const response = await axios.get(`${API_URL}/exercises`, config)
     // console.log('response.data', response.data)
     return response.data
 }
@@ -36,7 +34,7 @@ const deleteExercise = async (exerciseId, token) => {
         },
     }
     const response = await axios.delete(
-        `http://localhost:5000/api/exercises/${exerciseId}`,
+        `${API_URL}/exercises/${exerciseId}`,
         config
     )
     // console.log('response.data', response.data)
@@ -53,7 +51,7 @@ const updateExercise = async (update, token) => {
     const dataToUpdate = { exerciseName, exerciseType, duration, date, details }
     // console.log('Hey', dataToUpdate)
     const response = await axios.put(
-        `http://localhost:5000/api/exercises/${id}`,
+        `${API_URL}/exercises/${id}`,
         dataToUpdate,
         config
     )

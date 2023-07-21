@@ -1,12 +1,15 @@
 'use client'
-import { Box, Button, Stack, TextField } from '@mui/material'
+import { Stack, TextField } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { object, string, ref } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useDispatch } from 'react-redux'
-import { register as registerReducer } from '../features/auth/authSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { register as registerReducer, reset } from '../features/auth/authSlice'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+import { getExercises } from '../features/activities/exerciseSlice'
+import { useEffect } from 'react'
 
 export default function Register() {
     const userSchema = object({
@@ -19,6 +22,24 @@ export default function Register() {
             "Password didn't match."
         ),
     })
+    const dispatch = useDispatch()
+    const router = useRouter()
+    const { user, isLoading, isError, isSuccess, message } = useSelector(
+        (state) => state.auth
+    )
+
+    useEffect(() => {
+        if (isError) {
+            toast.error(message)
+        }
+        if (isSuccess || user) {
+            toast.success('Successfully Logged In')
+            router.push('/dashboard')
+            dispatch(getExercises())
+        }
+        dispatch(reset())
+    }, [user, isSuccess, isError, message, dispatch, router])
+
     const {
         register,
         handleSubmit,
@@ -26,17 +47,17 @@ export default function Register() {
     } = useForm({
         resolver: yupResolver(userSchema),
     })
-    const dispatch = useDispatch()
     const handleRegister = (data) => {
         console.log(data)
-        toast.success('Hello World')
         dispatch(registerReducer(data))
     }
     return (
         <main className='flex justify-center items-center m-auto py-8'>
             <div className='pt-1 pb-0 '>
                 <div className='py-4 mt-8 left-0'>
-                    <h4 className='font-semibold text-[#212b36]'>Sign In</h4>
+                    <h4 className='font-semibold text-[#212b36]'>
+                        Register Now
+                    </h4>
                     <div className='flex flex-col md:flex-row justify-start items-start'>
                         <p className='text-gray-500 font-normal'>
                             Already have an account?
@@ -107,14 +128,14 @@ export default function Register() {
                         <span className='text-red-600 -mt-1'>
                             {errors?.confirmPassword?.message}
                         </span>
-                        <Button
+
+                        <button
                             type='submit'
-                            variant='contained'
-                            color='error'
-                            size='large'
+                            className='block w-full bg-red-500 rounded-sm px-3 py-4 font-semibold text-sm text-white transition-all duration-200 ease-linear hover:font-medium Hover:scale-90'
                         >
-                            Sign up{' '}
-                        </Button>
+                            {' '}
+                            Sign up
+                        </button>
                     </Stack>
                 </form>
             </div>
