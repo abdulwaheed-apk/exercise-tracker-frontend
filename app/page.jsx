@@ -1,23 +1,20 @@
 'use client'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
 import Link from 'next/link'
 import workoutImg from '../public/workout.svg'
+import axios from 'axios'
+import { useQuery } from '@tanstack/react-query'
+
 
 export default function Home() {
-    const [quote, setQuote] = useState('')
-    useEffect(() => {
-        let randomIndex = Math.floor(Math.random() * 1600)
-        async function quoteMachine() {
-            const response = await axios.get('https://type.fit/api/quotes')
-            const getQuote = await response.data[randomIndex]
-            setQuote(getQuote.text)
-            // console.log('response check', getQuote.text)
-            // console.log('response check', getQuote.author)
-        }
-        quoteMachine()
-    }, [])
+    const { isLoading, error, data } = useQuery({
+        queryKey: ['quotes'],
+        queryFn: () => axios.get('https://type.fit/api/quotes').then((res) => res.data)
+    })
+
+    if (error) return 'An error has occurred: ' + error.message
+
+    let randomIndex = Math.floor(Math.random() * 20)
 
     return (
         <main className='container max-w-7xl xl:pt-40 pt-4 pb-8 px-4 mx-auto flex flex-col-reverse md:flex-row justify-between items-center'>
@@ -27,12 +24,12 @@ export default function Home() {
                     <span className='text-red-500'> Focus On Keep Going</span>.
                 </h1>
                 <h4 className='my-4 font-semibold text-gray-500 italic'>
-                    {quote}
+                    {isLoading ? 'Loading...' : data[randomIndex]?.text}
                 </h4>
                 <div className='my-4 py-6'>
                     <Link
                         href='/login'
-                        className='rounded-md text-[#212b36] font-semibold bg-transparent border  border-[#919eab52] hover:border-red-500 hover:bg-red-500 hover:text-white hover:scale-110 px-10 py-3 transition-all duration-200 ease-linear  hover:font-medium'
+                        className='rounded-md text-[#212b36] font-semibold bg-transparent border  border-[#212b36] hover:border-red-500 hover:bg-red-500 hover:text-white hover:scale-110 px-10 py-3 transition-all duration-200 ease-linear  hover:font-medium'
                     >
                         Get Started
                     </Link>

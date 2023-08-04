@@ -7,40 +7,45 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login, reset } from '../features/auth/authSlice'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
-import { useEffect } from 'react'
 import { getExercises } from '../features/activities/exerciseSlice'
 import { useRouter } from 'next/navigation'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export default function Login() {
+    const router = useRouter()
+    console.log('router', router)
     const userSchema = object({
         email: string().email().required('Email is required.'),
         password: string().min(4).max(20).required('Password is required.'),
     })
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        resolver: yupResolver(userSchema),
-    })
-    const { user, isLoading, isError, isSuccess, message } = useSelector(
-        (state) => state.auth
-    )
-    const dispatch = useDispatch()
-    const router = useRouter()
-    useEffect(() => {
-        if (isSuccess || user) {
-            toast.success('Successfully Logged In')
-            router.push('/dashboard')
-            dispatch(getExercises())
+    const { user } = useSelector((state) => state.auth)
+    const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(userSchema), })
+    if (user) {
+        console.log('user', user)
+        router.push('/dashboard')
+    }
+    const loginMutation = useMutation((data) => axios.post(`${API_URL}/users/login`, data),
+        {
+            onMutate: (variables) => {
+                // console.log('Mutation started', variables)
+            },
+            onSuccess: (res) => {
+                console.log('Mutation succeeded', res)
+                toast.success(`Welcome ${res.data.name}!, ${res.data.message}`)
+                localStorage.setItem('user', JSON.stringify(res.data.token))
+                router.push('/dashboard')
+            },
+            onError: (error) => {
+                toast.error(error.response.data.message)
+            },
         }
-        dispatch(reset())
-    }, [user, dispatch, isSuccess, router])
+    )
 
     const handleRegister = (data) => {
-        console.log(data)
-        dispatch(login(data))
+        loginMutation.mutate(data)
     }
     return (
         <main className='flex justify-center items-center m-auto py-8'>

@@ -13,7 +13,7 @@ import { useEffect } from 'react'
 
 export default function Register() {
     const userSchema = object({
-        name: string().required('Name is required.'),
+        name: string(),
         email: string().email().required('Email is required.'),
         username: string().required('Username is required.'),
         password: string().min(4).max(20).required('Password is required.'),
@@ -82,7 +82,7 @@ export default function Register() {
                             variant='outlined'
                             label='Name'
                             type='text'
-                            required={true}
+                            required={false}
                             {...register('name')}
                         />
                         <span className='text-red-600 -mt-1'>
