@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateUser } from '.././features/auth/authSlice'
-import { toast } from 'react-toastify'
-//
+import toast from 'react-hot-toast'
+
+
 const Profile = () => {
   const [formData, setUserData] = useState({
     name: '',

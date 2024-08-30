@@ -16,9 +16,9 @@ const Header = () => {
   // Handle Click
   const handleClick = () => {
     dispatch(logout())
+    navigate('/')
     dispatch(reset())
     dispatch(resetExercises())
-    navigate('/')
   }
   return (
     <>

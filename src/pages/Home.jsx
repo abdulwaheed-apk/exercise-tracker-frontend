@@ -8,17 +8,14 @@ function Home() {
   const navigate = useNavigate()
   const { user } = useSelector((state) => state.auth)
 
-  let quote = 'Change your thoughts and you change your world.'
+  let quote = "With just about every player in Australia, his whole goal and ambition is to play for Australia. That's why they're playing first class cricket. It's just a different attitude."
 
-  console.log('kk', window.location)
   useEffect(() => {
     if (user && window.location.pathname === '/') {
       navigate('/dashboard')
     }
   }, [user, navigate])
 
-
-  // Your physical health is just as important as your mental health.
   return (
     <>
       <Header />

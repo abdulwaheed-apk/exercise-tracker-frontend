@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
+
 import { reset, login } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
 import Header from '../components/Header'
 import { getExercises } from '../features/activities/exerciseSlice'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
-//
+import toast from 'react-hot-toast'
+
+
 function Login() {
   const [show, setShow] = useState(false)
   const [formData, setFormData] = useState({
@@ -23,6 +25,7 @@ function Login() {
   // Side effects
   useEffect(() => {
     if (isError) {
+      console.log('message', message)
       toast.error(message)
     }
     if (isSuccess || user) {

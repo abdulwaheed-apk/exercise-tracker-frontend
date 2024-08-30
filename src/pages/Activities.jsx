@@ -9,7 +9,7 @@ import {
   updateExercise,
   deleteExercise,
 } from '../features/activities/exerciseSlice'
-import { toast } from 'react-toastify'
+import toast from 'react-hot-toast'
 
 let calledOnce = true
 
@@ -41,6 +41,7 @@ const Activities = () => {
   useEffect(() => {
     if (isError) {
       toast.error(message)
+
       dispatch(resetExercises())
     }
     if (isSuccess || calledOnce) {

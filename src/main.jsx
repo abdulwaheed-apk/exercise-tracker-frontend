@@ -15,6 +15,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import NotFound from './components/NotFound'
 import ExerciseByType from './components/ExerciseByType'
+import { Toaster } from 'react-hot-toast'
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <RouterProvider router={router} />
     <ToastContainer />
+    <Toaster />
   </Provider>
   // </React.StrictMode>
 )

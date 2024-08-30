@@ -3,12 +3,12 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { register, reset } from '../features/auth/authSlice'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
 import Header from '../components/Header'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import toast from 'react-hot-toast'
 
-//
+
 function Register() {
   const [show, setShow] = useState(false)
   const [formData, setFormData] = useState({
