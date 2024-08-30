@@ -22,7 +22,7 @@ const Header = () => {
   }
   return (
     <>
-      <header className='sticky z-40 top-0 right-0 left-0 py-4 px-4 border-b border-[#E8EAED] max-h-20 bg-white shadow-sm rounded-b max-w-7xl mx-auto'>
+      <header className='sticky z-9 top-0 right-0 left-0 py-4 px-4 border-b border-[#E8EAED] max-h-20 bg-white shadow-sm rounded-b max-w-7xl mx-auto'>
         <nav className='max-w-7xl mx-auto flex justify-between items-center overflow-hidden'>
           <h2 className='flex-none sm:flex-auto'>
             <Link

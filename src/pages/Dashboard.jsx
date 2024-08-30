@@ -22,7 +22,7 @@ function Dashboard() {
       {/* grid grid-cols-6 place-items-start */}
       <section className='flex justify-center md:justify-start items-start gap-4 max-w-7xl mx-auto relative'>
         <Sidebar />
-        <section className='bg-white '>
+        <section className='bg-white relative left-32'>
           {/* col-span-5 md:col-span-4 */}
           <Outlet />
         </section>

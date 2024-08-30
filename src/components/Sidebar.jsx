@@ -32,8 +32,7 @@ const Sidebar = () => {
         )}
       </button>{' '}
       <aside
-        className={`${!toggle ? 'hidden' : 'inline-block'
-          } md:inline-block  absolute z-30 md:sticky top-6 md:top-16 left-0 bg-white shadow-lg h-screen w-64 px-4`}
+        className={`fixed top-11 left-0 z-10 hidden flex-col bg-background sm:flex bg-white px-4 py-2`}
       >
         <nav>
           <div className='block md:hidden rounded-xl mx-auto my-2 '>
