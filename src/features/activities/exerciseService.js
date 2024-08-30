@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { exerciseEndpoint } from '../../core/endpoints'
+
 // Create Exercise
 const createExercise = async (exerciseData, token) => {
   const config = {

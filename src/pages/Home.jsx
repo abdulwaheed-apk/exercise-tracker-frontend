@@ -1,21 +1,23 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import axios from 'axios'
-function Home() {
-  const [quote, setQuote] = useState('')
+import { useSelector } from 'react-redux'
 
+function Home() {
+  const navigate = useNavigate()
+  const { user } = useSelector((state) => state.auth)
+
+  let quote = 'Change your thoughts and you change your world.'
+
+  console.log('kk', window.location)
   useEffect(() => {
-    let randomIndex = Math.floor(Math.random() * 1600)
-    async function quoteMachine() {
-      const response = await axios.get('https://type.fit/api/quotes')
-      const getQuote = await response.data[randomIndex]
-      setQuote(getQuote.text)
-      // console.log('response check', getQuote.text)
-      // console.log('response check', getQuote.author)
+    if (user && window.location.pathname === '/') {
+      navigate('/dashboard')
     }
-    quoteMachine()
-  }, [])
+  }, [user, navigate])
+
+
   // Your physical health is just as important as your mental health.
   return (
     <>

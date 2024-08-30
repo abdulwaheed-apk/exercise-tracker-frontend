@@ -4,6 +4,8 @@ import { logout, reset } from '../features/auth/authSlice'
 import { resetExercises } from '../features/activities/exerciseSlice'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { useState } from 'react'
+import { FaArrowRightFromBracket } from 'react-icons/fa6'
+
 const Header = () => {
   const [toggle, setToggle] = useState(false)
   const dispatch = useDispatch()
@@ -32,26 +34,18 @@ const Header = () => {
           </h2>
 
           <ul
-            className={`flex-none ${
-              toggle ? 'flex' : 'hidden md:flex'
-            } my-auto ml-auto`}
+            className={`flex-none ${toggle ? 'flex' : 'hidden md:flex'
+              } my-auto ml-auto`}
           >
             {user ? (
               <>
-                <li className='rounded max-w-max py-1 px-1 md:px-4 text-black'>
-                  <Link
-                    to='/dashboard'
-                    className='font-medium hover:text-red-500'
-                  >
-                    Dashboard
-                  </Link>
-                </li>
+
                 <li className='rounded max-w-max py-1 px-1 md:px-4 text-black'>
                   <button
                     onClick={handleClick}
-                    className='font-medium hover:text-red-500'
+                    className='font-medium hover:text-red-500 flex items-center gap-1'
                   >
-                    Logout
+                    Logout <FaArrowRightFromBracket />
                   </button>
                 </li>
               </>

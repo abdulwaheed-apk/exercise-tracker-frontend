@@ -10,9 +10,10 @@ import {
   deleteExercise,
 } from '../features/activities/exerciseSlice'
 import { toast } from 'react-toastify'
+
 let calledOnce = true
 
-//
+
 const Activities = () => {
   const [formData, setFormData] = useState({
     exerciseName: '',
@@ -207,59 +208,59 @@ const Activities = () => {
         <section className='grid grid-cols-1 lg:grid-cols-2 gap-4 py-8 px-4'>
           {exercises.length > 0
             ? exercises.map((exercise) => (
-                <div
-                  className='bg-gradient-to-tr from-[#444444] to-[#2a2a2a] rounded-2xl drop-shadow-md text-white min-w-96 max-w-md py-5 px-4'
-                  key={exercise._id}
-                >
-                  <div className='flex  items-center justify-between max-h-6  '>
-                    <p className='font-semibold text-xl bg-white rounded text-[#212B36] px-2'>
-                      {exercise.exerciseType}
-                    </p>
-                    <div className='ml-auto mr-0 '>
-                      <button
-                        type='button'
-                        className='mx-1 '
-                        onClick={() => {
-                          if (
-                            window.confirm(
-                              `Want to delete ${exercise.exerciseName} ?`
-                            )
-                          ) {
-                            dispatch(deleteExercise(exercise._id))
-                          }
-                        }}
-                      >
-                        <FaTrash className='hover:text-red-500' />
-                      </button>
-                      <button
-                        type='button'
-                        className='mx-1'
-                        onClick={() => {
-                          handleEdit(exercise)
-                          scrollTo(0, 0)
-                        }}
-                      >
-                        <FiEdit />
-                      </button>
-                    </div>
-                  </div>
-                  <div className='border-t-2 my-2 pt-5 border-[#E8EAED]'>
-                    <h4 className='font-semibold text-xl -mt-3'>
-                      {exercise.exerciseName}
-                    </h4>
-                    <p className='font-light text-base italic'>
-                      {' '}
-                      {exercise.duration} minutes
-                    </p>
-                    <p className='font-normal text-base text-gray-300'>
-                      {exercise.details}
-                    </p>
-                    <p className='font-light text-base mt-2'>
-                      {new Date(exercise.date).toISOString().slice(0, 10)}
-                    </p>
+              <div
+                className='bg-gradient-to-tr from-[#444444] to-[#2a2a2a] rounded-2xl drop-shadow-md text-white min-w-96 max-w-md py-5 px-4'
+                key={exercise._id}
+              >
+                <div className='flex  items-center justify-between max-h-6  '>
+                  <p className='font-semibold text-xl bg-white rounded text-[#212B36] px-2'>
+                    {exercise.exerciseType}
+                  </p>
+                  <div className='ml-auto mr-0 '>
+                    <button
+                      type='button'
+                      className='mx-1 '
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            `Want to delete ${exercise.exerciseName} ?`
+                          )
+                        ) {
+                          dispatch(deleteExercise(exercise._id))
+                        }
+                      }}
+                    >
+                      <FaTrash className='hover:text-red-500' />
+                    </button>
+                    <button
+                      type='button'
+                      className='mx-1'
+                      onClick={() => {
+                        handleEdit(exercise)
+                        scrollTo(0, 0)
+                      }}
+                    >
+                      <FiEdit />
+                    </button>
                   </div>
                 </div>
-              ))
+                <div className='border-t-2 my-2 pt-5 border-[#E8EAED]'>
+                  <h4 className='font-semibold text-xl -mt-3'>
+                    {exercise.exerciseName}
+                  </h4>
+                  <p className='font-light text-base italic'>
+                    {' '}
+                    {exercise.duration} minutes
+                  </p>
+                  <p className='font-normal text-base text-gray-300'>
+                    {exercise.details}
+                  </p>
+                  <p className='font-light text-base mt-2'>
+                    {new Date(exercise.date).toISOString().slice(0, 10)}
+                  </p>
+                </div>
+              </div>
+            ))
             : 'You do not have any exercise Kindly add new exercise'}
         </section>
       </section>

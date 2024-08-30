@@ -1,11 +1,9 @@
 import axios from 'axios'
 import { userEndpoint } from '../../core/endpoints'
 
-// console.log(userEndpoint)
-
 // Register Call
 const register = async (userData) => {
-  const response = await axios.post(userEndpoint + '/register', userData)
+  const response = await axios.post(`${userEndpoint}/register`, userData)
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data))
   }
@@ -18,7 +16,7 @@ const logout = () => {
 }
 // Login Call
 const login = async (userData) => {
-  const response = await axios.post(userEndpoint + '/login', userData)
+  const response = await axios.post(`${userEndpoint}/login`, userData)
   if (response.status === 400) {
     return response.data
   }
@@ -34,7 +32,7 @@ const updateUser = async (userData, token) => {
     },
   }
   const response = await axios.put(
-    userEndpoint + '/profileUpdate',
+    `${userEndpoint}/profileUpdate`,
     userData,
     config
   )

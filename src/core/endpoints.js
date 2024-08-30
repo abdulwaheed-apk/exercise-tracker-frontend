@@ -1,4 +1,2 @@
-const API_PREFIX = 'https://exercise-tracker-api-production.up.railway.app/api'
-
-export const userEndpoint = `${API_PREFIX}/users`
-export const exerciseEndpoint = `${API_PREFIX}/exercises`
+export const exerciseEndpoint = `${import.meta.env.VITE_API_URL}/exercises`
+export const userEndpoint = `${import.meta.env.VITE_API_URL}/users`

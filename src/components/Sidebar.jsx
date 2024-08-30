@@ -15,7 +15,7 @@ const Sidebar = () => {
 
   const { user } = useSelector((state) => state.auth)
 
-  const { name, username } = user // parent user object is user state coming from store and child user is coming from server( on login request we are sending back token, user, and message)
+  // const { name, username } = user // parent user object is user state coming from store and child user is coming from server( on login request we are sending back token, user, and message)
   // console.log(name)
   // console.log(username)
 
@@ -32,9 +32,8 @@ const Sidebar = () => {
         )}
       </button>{' '}
       <aside
-        className={`${
-          !toggle ? 'hidden' : 'inline-block'
-        } md:inline-block  absolute z-30 md:sticky top-6 md:top-16 left-0 bg-white shadow-lg h-screen w-64 px-4`}
+        className={`${!toggle ? 'hidden' : 'inline-block'
+          } md:inline-block  absolute z-30 md:sticky top-6 md:top-16 left-0 bg-white shadow-lg h-screen w-64 px-4`}
       >
         <nav>
           <div className='block md:hidden rounded-xl mx-auto my-2 '>
@@ -46,8 +45,8 @@ const Sidebar = () => {
           <div className='bg-[#F2F3F5] w-56 mx-auto h-20 rounded-xl flex justify-around items-center px-4 my-5'>
             <img src='/vite.svg' alt='avatar' className='w-14 rounded-full' />
             <div>
-              <h4 className='font-medium text-base'>{name}</h4>
-              <h6 className='font-normal text-xs'>{username}</h6>
+              <h4 className='font-medium text-base'>{user?.name}</h4>
+              <h6 className='font-normal text-xs'>{user?.username}</h6>
             </div>
           </div>
           <ul className='space-y-2 mt-2'>
